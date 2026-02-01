@@ -1,0 +1,10 @@
+Feb  1 08:15:23 server sshd[1234]: Invalid user admin from 192.168.1.100 port 45678
+Feb  1 08:15:45 server sshd[1235]: Failed password for root from 192.168.1.101 port 45679 ssh2
+Feb  1 08:16:12 server sshd[1236]: Accepted publickey for ubuntu from 192.168.1.50 port 45680 ssh2
+Feb  1 08:16:45 server sshd[1237]: Failed password for user from 192.168.1.102 port 45681 ssh2
+Feb  1 08:17:10 server sshd[1238]: Connection closed by authenticating user ubuntu 192.168.1.50 port 45682 [preauth]
+Feb  1 08:17:33 server sshd[1239]: Failed password for admin from 192.168.1.103 port 45683 ssh2
+Feb  1 08:18:01 server sshd[1240]: Accepted password for ubuntu from 192.168.1.50 port 45684 ssh2
+Feb  1 08:18:45 server sshd[1241]: Failed password for root from 192.168.1.104 port 45685 ssh2
+Feb  1 08:19:12 server sshd[1242]: User not allowed because account is locked
+Feb  1 08:19:33 server sshd[1243]: Failed password for testuser from 192.168.1.105 port 45686 ssh2
