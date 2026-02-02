@@ -83,7 +83,7 @@ IP Address,Attempt Count
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.9+
 - Standard library only (no external dependencies)
 
 ## License
