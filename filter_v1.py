@@ -5,6 +5,7 @@ import json
 
 instance_log = {}
 login_list = []
+THRESHOLD = 3 # IPs exceeding this are flagged as high risk
 
 # Open the log file
 with open('sample.log', 'r') as file:
@@ -24,22 +25,30 @@ with open('sample.log', 'r') as file:
                     instance_log[ip_address] = 1
     # Prints output header
     print("Failed login attempts by IP:")
-    # Prints failed login attempts and number of times for each address
+
+    high_risk_count = 0 # Counter for IPs that exceed the established threshold
+
     for ip_address in instance_log:
-        print(f'{ip_address}: {instance_log[ip_address]}')
+        count = instance_log[ip_address]
+        if count > THRESHOLD:
+            print(f'{ip_address}: {count} attempts - HIGH RISK')
+            high_risk_count += 1
+        else:
+            print(f'{ip_address}: {count} attempts')
     # Prints total failed login attempts
     print(f'Total failed attempts: {sum(instance_log.values())}')
+    print(f'High risk IPs detected: {high_risk_count}')
 # Create exports directory if it doesn't exist
 os.makedirs('exports', exist_ok=True)
 # Writes to CSV
 with open('exports/failed_logins.csv', 'w') as file:
     writer = csv.writer(file)
-    writer.writerow(['IP Address', 'Attempt Count']) # Writes header 
+    writer.writerow(['IP Address', 'Attempt Count', 'Risk_Level']) # Writes header 
     for ip_address in instance_log:
-        writer.writerow([ip_address, instance_log[ip_address]])  #Writes IP and failed attempts
+        writer.writerow([ip_address, instance_log[ip_address], "HIGH RISK" if instance_log[ip_address] > THRESHOLD else "NORMAL"])  #Writes IP and failed attempts
 # Writes to JSON
 for ip_address in instance_log:
-    login_list.append({"IP Address": ip_address, "Attempt Count": instance_log[ip_address]})
+    login_list.append({"IP Address": ip_address, "Attempt Count": instance_log[ip_address], "Risk Level": "HIGH RISK" if instance_log[ip_address] > THRESHOLD else "NORMAL"})
 # Prepares data for JSON output
 data = {
     "failed_logins": login_list,

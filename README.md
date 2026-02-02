@@ -13,18 +13,19 @@ This project reads system log files and analyzes failed SSH authentication attem
 - Extracts IP addresses using regex pattern matching
 - Tracks and counts repeat offenders
 - Generates summary reports with attempt counts per IP
-- Exports data to CSV format (failed_logins.csv)
-- Exports data to structured JSON format (failed_logins.json)
+- Threshold-based alerts for high-risk IPs (configurable threshold)
+- Exports data to CSV format with risk level indicators
+- Exports data to structured JSON format with risk level metadata
 
 **Planned:**
-- Threshold-based alerts for high-risk IPs
 - Geolocation lookup for source IPs
 - Support for multiple log formats
 - Real-time log monitoring
+- Configurable alert thresholds via command-line arguments
 
 ## Current Status
 
-Version 1.5 - CSV/JSON export functionality added
+Version 2.0 - High-risk IP threshold alerts implemented
 
 ## Usage
 
@@ -41,11 +42,14 @@ This reads `sample.log` and:
 
 ```
 Failed login attempts by IP:
-10.0.0.50: 1
-203.0.113.45: 3
-198.51.100.22: 2
-Total failed attempts: 6
+10.0.0.50: 1 attempts
+203.0.113.45: 5 attempts - HIGH RISK
+198.51.100.22: 2 attempts
+Total failed attempts: 8
+High risk IPs detected: 1
 ```
+
+The script flags IPs exceeding 3 failed attempts as HIGH RISK, helping security teams prioritize response efforts.
 
 ## Output Files
 
@@ -53,21 +57,21 @@ The script generates two output files in the `exports/` directory. See the `exam
 
 **failed_logins.csv** - Spreadsheet-compatible format
 ```csv
-IP Address,Attempt Count
-10.0.0.50,1
-203.0.113.45,3
-198.51.100.22,2
+IP Address,Attempt Count,Risk_Level
+10.0.0.50,1,NORMAL
+203.0.113.45,5,HIGH RISK
+198.51.100.22,2,NORMAL
 ```
 
 **failed_logins.json** - Structured data format
 ```json
 {
     "failed_logins": [
-        {"IP Address": "10.0.0.50", "Attempt Count": 1},
-        {"IP Address": "203.0.113.45", "Attempt Count": 3},
-        {"IP Address": "198.51.100.22", "Attempt Count": 2}
+        {"IP Address": "10.0.0.50", "Attempt Count": 1, "Risk Level": "NORMAL"},
+        {"IP Address": "203.0.113.45", "Attempt Count": 5, "Risk Level": "HIGH RISK"},
+        {"IP Address": "198.51.100.22", "Attempt Count": 2, "Risk Level": "NORMAL"}
     ],
-    "total_attempts": 6
+    "total_attempts": 8
 }
 ```
 
@@ -77,9 +81,11 @@ IP Address,Attempt Count
 2. Filters for lines containing "Failed password"
 3. Extracts IP addresses using regex pattern `\d+\.\d+\.\d+\.\d+`
 4. Stores IPs in a dictionary with attempt counts
-5. Displays summary report in terminal
-6. Exports data to CSV file with headers and counts
-7. Exports data to structured JSON format with metadata
+5. Evaluates each IP against the threshold (default: 3 attempts)
+6. Displays summary report in terminal with HIGH RISK indicators
+7. Counts and reports total high-risk IPs detected
+8. Exports data to CSV file with risk level classifications
+9. Exports data to structured JSON format with risk metadata
 
 ## Requirements
 
