@@ -89,7 +89,7 @@ IP Address,Attempt Count,Risk_Level
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.9+
 - Standard library only (no external dependencies)
 
 ## License
