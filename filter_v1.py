@@ -1,7 +1,8 @@
 import re
 
+instance_log = {}
+
 # Open the log file
-x = 0
 with open('sample.log', 'r') as file:
     # Read each line
     for line in file:
@@ -12,9 +13,15 @@ with open('sample.log', 'r') as file:
             # If an IP address is found, store it
             if match:
                 ip_address = match.group(0)
-            # Print output
-                print(f'Failed login from: {ip_address}')
-            # Add to total count
-            x += 1
-    print(f'Total failed attempts: {x}')  
-    
+                # Tracks failed login attempts
+                if ip_address in instance_log:
+                    instance_log[ip_address] += 1
+                else:
+                    instance_log[ip_address] = 1
+    # Prints output header
+    print("Failed login attempts by IP:")
+    # Prints failed login attempts and number of times each respective IP failed
+    for ip_address in instance_log:
+        print(f'{ip_address}: {instance_log[ip_address]}')
+    # Prints total failed login attempts
+    print(f'Total failed attempts: {sum(instance_log.values())}')
