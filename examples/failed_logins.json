@@ -1,25 +1,25 @@
 {
     "failed_logins": [
         {
-            "IP Address": "192.168.1.101",
-            "Attempt Count": 1
+            "IP Address": "192.168.1.100",
+            "Attempt Count": 5,
+            "Risk Level": "HIGH RISK"
         },
         {
-            "IP Address": "192.168.1.102",
-            "Attempt Count": 1
+            "IP Address": "10.0.0.25",
+            "Attempt Count": 4,
+            "Risk Level": "HIGH RISK"
         },
         {
-            "IP Address": "192.168.1.103",
-            "Attempt Count": 1
-        },
-        {
-            "IP Address": "192.168.1.104",
-            "Attempt Count": 1
+            "IP Address": "172.16.0.10",
+            "Attempt Count": 2,
+            "Risk Level": "NORMAL"
         },
         {
             "IP Address": "192.168.1.105",
-            "Attempt Count": 1
+            "Attempt Count": 1,
+            "Risk Level": "NORMAL"
         }
     ],
-    "total_attempts": 5
+    "total_attempts": 12
 }
