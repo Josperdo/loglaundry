@@ -35,18 +35,19 @@ python filter_v1.py
 
 This reads `sample.log` and:
 - Displays a terminal summary of failed login attempts by IP address
-- Generates `failed_logins.csv` with IP addresses and attempt counts
-- Generates `failed_logins.json` with structured data including total attempts
+- Generates `exports/failed_logins.csv` with IP addresses, attempt counts, and risk levels
+- Generates `exports/failed_logins.json` with structured data including total attempts
 
 ### Example Terminal Output
 
 ```
 Failed login attempts by IP:
-10.0.0.50: 1 attempts
-203.0.113.45: 5 attempts - HIGH RISK
-198.51.100.22: 2 attempts
-Total failed attempts: 8
-High risk IPs detected: 1
+192.168.1.100: 5 attempts - HIGH RISK
+10.0.0.25: 4 attempts - HIGH RISK
+172.16.0.10: 2 attempts
+192.168.1.105: 1 attempts
+Total failed attempts: 12
+High risk IPs detected: 2
 ```
 
 The script flags IPs exceeding 3 failed attempts as HIGH RISK, helping security teams prioritize response efforts.
@@ -58,20 +59,22 @@ The script generates two output files in the `exports/` directory. See the `exam
 **failed_logins.csv** - Spreadsheet-compatible format
 ```csv
 IP Address,Attempt Count,Risk_Level
-10.0.0.50,1,NORMAL
-203.0.113.45,5,HIGH RISK
-198.51.100.22,2,NORMAL
+192.168.1.100,5,HIGH RISK
+10.0.0.25,4,HIGH RISK
+172.16.0.10,2,NORMAL
+192.168.1.105,1,NORMAL
 ```
 
 **failed_logins.json** - Structured data format
 ```json
 {
     "failed_logins": [
-        {"IP Address": "10.0.0.50", "Attempt Count": 1, "Risk Level": "NORMAL"},
-        {"IP Address": "203.0.113.45", "Attempt Count": 5, "Risk Level": "HIGH RISK"},
-        {"IP Address": "198.51.100.22", "Attempt Count": 2, "Risk Level": "NORMAL"}
+        {"IP Address": "192.168.1.100", "Attempt Count": 5, "Risk Level": "HIGH RISK"},
+        {"IP Address": "10.0.0.25", "Attempt Count": 4, "Risk Level": "HIGH RISK"},
+        {"IP Address": "172.16.0.10", "Attempt Count": 2, "Risk Level": "NORMAL"},
+        {"IP Address": "192.168.1.105", "Attempt Count": 1, "Risk Level": "NORMAL"}
     ],
-    "total_attempts": 8
+    "total_attempts": 12
 }
 ```
 
