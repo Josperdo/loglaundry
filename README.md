@@ -1,4 +1,4 @@
-# Log Event Filter
+# Loglaundry
 
 A Python utility for analyzing authentication logs and identifying failed SSH login attempts with IP tracking and repeat offender detection.
 
